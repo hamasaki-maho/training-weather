@@ -118,6 +118,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Xcode user data
+*.xcuserstate
+*.xcuserdata/
+
 
 # --------------------------------------------------------------------------------
 # Sentry CLI 
