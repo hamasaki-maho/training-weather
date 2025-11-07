@@ -12,8 +12,6 @@ struct CityList: View {
     
     var body: some View {
         NavigationSplitView {
-            Text("Select City")
-                .bold()
             List {
                 ForEach(model.cities) { city in
                     
@@ -25,9 +23,10 @@ struct CityList: View {
                         }
                     }
                 }
-            }
+            }.navigationTitle("Select City")
         } detail: {
             Text("Select City")
+                
         }
 
     }
