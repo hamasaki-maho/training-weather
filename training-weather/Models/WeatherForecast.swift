@@ -22,5 +22,5 @@ struct Forecast: Codable, Identifiable, Hashable {
 }
 
 struct ForecastImage: Codable, Hashable {
-    var url:String
+    var url:URL
 }

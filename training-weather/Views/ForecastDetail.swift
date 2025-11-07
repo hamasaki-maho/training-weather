@@ -7,24 +7,38 @@
 
 import SwiftUI
 
+import WebKit
+
 struct ForecastDetail: View {
     @Environment(Model.self) var model
     
     var body: some View {
+        Text("City")
         List {
             ForEach(model.mockWeatherForecast.forecasts) { forecast in
                 HStack {
                     Text(forecast.date)
-                    Spacer()
-                    AsyncImage(url: URL(string: "https://example.com/icon.png"))
-                        .frame(width: 200, height: 200)
-                    
-                    Text(forecast.image.url)
-//                    AsyncImage(url: URL(string: forecast.image.url))
-//                        .frame(width: 200, height: 200)
+
+Spacer(minLength: 120)
+
+                    HStack {
+                        SVGWebView(url: forecast.image.url)
+                            .frame(width: 20)
+                        Text(forecast.telop)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
+    }
+}
+
+
+struct SVGWebView: UIViewRepresentable {
+    let url: URL
+    func makeUIView(context: Context) -> WKWebView { WKWebView() }
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        webView.load(URLRequest(url: url))
     }
 }
 

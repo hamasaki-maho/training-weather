@@ -16,19 +16,20 @@ struct CityList: View {
                 .bold()
             List {
                 ForEach(model.cities) { city in
-                    HStack {
-                        Text(city.name)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundStyle(.gray)
-                    }
                     
+                    NavigationLink {
+                        ForecastDetail()
+                    } label: {
+                        HStack {
+                            Text(city.name)
+                        }
+                    }
                 }
             }
         } detail: {
             Text("Select City")
         }
-        .padding()
+
     }
 }
 
