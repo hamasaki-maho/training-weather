@@ -8,27 +8,26 @@
 import Foundation
 
 struct City: Codable, Identifiable, Hashable {
-    var id: Int
+    var id:String
     var name: String
-    var weathers: [Weather]
 }
 
+struct WeatherForcast: Codable, Hashable {
+    var forcasts : [Forcast]
+}
 
-struct Weather: Codable, Hashable, Identifiable {
-    var id:String
+struct Forcast: Codable, Identifiable, Hashable {
     var date: String
-    var weather: weather
-    var image: String
+    var telop:String
+    var image:Image
     
-    enum weather: String, CodingKey, CaseIterable {
-        case sun = "晴れ"
-        case cloud = "曇り"
-        case rain = "雨"
-        
-        var id: String {
-            rawValue
-        }
+    var id : String{
+        date
     }
+}
+
+struct Image: Codable, Hashable {
+    var url:String
 }
 
 

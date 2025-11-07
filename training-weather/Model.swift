@@ -9,7 +9,8 @@ import Foundation
 
 @Observable
 class Model {
-    var cities: [City] = load("resource.json")
+    var cities: [City] = load("cities.json")
+//    var mockWeatherForcast: WeatherForcast = load("mockWeatherForcasts.json")
 }
 
 func load<T: Decodable>(_ filename: String) -> T {
