@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  CityList.swift
 //  training-weather
 //
-//  Created by hamasaki.maho on 2025/11/06.
+//  Created by direct_975 on 2025/11/07.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct CityList: View {
     @Environment(Model.self) var model
     
     var body: some View {
@@ -33,6 +33,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    CityList()
         .environment(Model())
 }
