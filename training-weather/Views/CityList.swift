@@ -11,14 +11,22 @@ struct CityList: View {
     @Environment(Model.self) var model
     @State private var showFavoriteOnly: Bool = false
     
+    var filteredCities: [City] {
+        model.cities.filter{city in
+            (!showFavoriteOnly || city.isFavorite)}
+    }
+    
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(model.cities) { city in
+                Toggle(isOn: $showFavoriteOnly){
+                    Text("Favorite")
+                }
+                ForEach(filteredCities) { city in
                     CityRow(city: city)
                     
-                }.navigationTitle("Select City")
-            }
+                }
+            }.navigationTitle("Select City")
         } detail: {
             Text("Select City")
         }

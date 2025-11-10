@@ -15,18 +15,22 @@ struct CityRow: View {
             $0.id == city.id
         })!
     }
-
+    
     var body: some View {
         @Bindable var model = model
-        NavigationLink {
-            ForecastDetail(cityId: city.id)
-        } label: {
-            HStack {
-                FavoriteButton(isSet: $model.cities[cityIndex].isFavorite)
-                Text(city.name)
-                    .foregroundStyle(.black)
+        HStack{
+            FavoriteButton(isSet: $model.cities[cityIndex].isFavorite)
+            
+            NavigationLink {
+                ForecastDetail(cityId: city.id)
+            } label: {
+
+                    Text(city.name)
+                        .foregroundStyle(.black)
+    
             }
         }
+        
     }
 }
 

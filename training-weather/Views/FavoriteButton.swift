@@ -13,7 +13,7 @@ struct FavoriteButton: View {
     var body: some View {
         Button{isSet.toggle()} label: {
             Label("favorite", systemImage: isSet ? "star.fill" : "star").labelStyle(.iconOnly).foregroundStyle(isSet ? .yellow : .gray)
-        }
+        }.buttonStyle(.plain)
     }
 }
 
