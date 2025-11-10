@@ -1,11 +1,12 @@
 [
     {
         "id":"130010",
-        "name":"東京"
+        "name":"東京",
+        "isFavorite": true
     },
     {
         "id":"270000",
-        "name":"大阪"
+        "name":"大阪",
+        "isFavorite": false
     }
-    
 ]
