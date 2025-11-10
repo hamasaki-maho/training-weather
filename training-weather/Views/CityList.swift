@@ -10,10 +10,13 @@ import SwiftUI
 struct CityList: View {
     @Environment(Model.self) var model
     @State private var showFavoriteOnly: Bool = false
+    @State private var searchText: String = ""
     
     var filteredCities: [City] {
         model.cities.filter{city in
-            (!showFavoriteOnly || city.isFavorite)}
+            city.name.contains(searchText) ||
+            (!showFavoriteOnly || city.isFavorite)
+        }
     }
     
     var body: some View {
@@ -27,6 +30,7 @@ struct CityList: View {
                     
                 }
             }.navigationTitle("Select City")
+                .searchable(text: $searchText, prompt: "都市を検索")
         } detail: {
             Text("Select City")
         }
