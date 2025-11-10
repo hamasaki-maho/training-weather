@@ -12,6 +12,7 @@ struct training_weatherApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(Model())
         }
     }
 }
