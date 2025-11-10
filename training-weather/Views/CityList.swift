@@ -13,8 +13,8 @@ struct CityList: View {
     @State private var searchText: String = ""
     
     var filteredCities: [City] {
-        model.cities.filter{city in
-            city.name.contains(searchText) ||
+        model.cities.filter {city in
+            (searchText.isEmpty || city.name.contains(searchText)) &&
             (!showFavoriteOnly || city.isFavorite)
         }
     }

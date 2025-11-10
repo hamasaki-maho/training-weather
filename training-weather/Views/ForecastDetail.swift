@@ -17,28 +17,46 @@ struct ForecastDetail: View {
     
     var body: some View {
         Text("City")
-        List {
-            ForEach(weatherForecast?.forecasts ?? []) { forecast in
-                HStack {
-                    Text(forecast.date)
-                    
-                    Spacer(minLength: 120)
-                    
+        ZStack {
+            
+            if weatherForecast == nil {
+                ProgressView()
+                    .scaleEffect(1.8)
+                    .zIndex(100)
+            }
+            List {
+                ForEach(weatherForecast?.forecasts ?? []) { forecast in
                     HStack {
-                        SVGWebView(url: forecast.image.url)
-                            .frame(width: 20)
-                        Text(forecast.telop)
+                        Text(forecast.date)
+                        
+                        Spacer(minLength: 120)
+                        
+                        HStack {
+                            SVGWebView(url: forecast.image.url)
+                                .frame(width: 20)
+                            Text(forecast.telop)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }.task {
+                do {
+                    weatherForecast = try await getForecast(cityId: cityId)
+                } catch {
+                    print(error)
                 }
             }
-        }.task {
-            do {
-                weatherForecast = try await getForecast(cityId: cityId)
-            } catch {
-                print(error)
+            .scrollContentBackground(weatherForecast == nil ? .hidden : .visible)
+            .background(Color(.systemGroupedBackground))
+            .refreshable {
+                do {
+                    weatherForecast = try await getForecast(cityId: cityId)
+                } catch {
+                    
+                }
             }
         }
+
     }
 }
 
