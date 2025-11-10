@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct CityRow: View {
+    @Environment(Model.self) var model
     var city: City
-    
+    var cityIndex: Int {
+        model.cities.firstIndex(where: {
+            $0.id == city.id
+        })!
+    }
+
     var body: some View {
+        @Bindable var model = model
         NavigationLink {
             ForecastDetail(cityId: city.id)
         } label: {
             HStack {
-                if city.isFavorite {
-                    Image(systemName: "star.fill")
-                        .foregroundStyle(.yellow)
-                } else{
-                    Image(systemName: "star")
-                }
+                FavoriteButton(isSet: $model.cities[cityIndex].isFavorite)
                 Text(city.name)
                     .foregroundStyle(.black)
             }
@@ -30,4 +32,5 @@ struct CityRow: View {
 
 #Preview {
     CityRow(city: Model().cities.first!)
+        .environment(Model())
 }
