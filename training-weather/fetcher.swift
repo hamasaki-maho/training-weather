@@ -7,17 +7,14 @@
 
 import Foundation
 
-func getForecast(by id:String) async throws -> WeatherForecast{
-    guard let url = URL(string: "https://weather.tsukumijima.net/api/forecast/city/\(id)") else { throw URLError(.badURL)}
-    var request = URLRequest(url: url)
+func getForecast(cityId:String) async throws -> WeatherForecast{
+    guard let url = URL(string: "https://weather.tsukumijima.net/api/forecast/city/\(cityId)") else { throw URLError(.badURL)}
     
-    URLSession.shared.dataTask(with: request){ date,responce,error in
-        if let error = error {
-            throw URLError(.badServerResponse)
-        }
-        
-        if let responce = responce as? HTTPURLResponse, responce.statusCode != 200 {
-            
-        }
-    }
+    let (data, response) = try await URLSession.shared.data(from: url)
+    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else{throw URLError(.badServerResponse)}
+    
+    let decoder = JSONDecoder()
+    let result = try decoder.decode(WeatherForecast.self, from: data)
+    
+    return result
 }
