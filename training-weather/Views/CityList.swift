@@ -16,7 +16,7 @@ struct CityList: View {
                 ForEach(model.cities) { city in
                     
                     NavigationLink {
-                        ForecastDetail()
+                        ForecastDetail(cityId: city.id)
                     } label: {
                         HStack {
                             Text(city.name)

@@ -12,15 +12,18 @@ import WebKit
 struct ForecastDetail: View {
     @Environment(Model.self) var model
     
+    var cityId : String
+    @State private var weatherForecast: WeatherForecast?
+    
     var body: some View {
         Text("City")
         List {
-            ForEach(model.mockWeatherForecast.forecasts) { forecast in
+            ForEach(weatherForecast?.forecasts ?? []) { forecast in
                 HStack {
                     Text(forecast.date)
-
-Spacer(minLength: 120)
-
+                    
+                    Spacer(minLength: 120)
+                    
                     HStack {
                         SVGWebView(url: forecast.image.url)
                             .frame(width: 20)
@@ -28,6 +31,12 @@ Spacer(minLength: 120)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
+            }
+        }.task {
+            do {
+                weatherForecast = try await getForecast(cityId: cityId)
+            } catch {
+                print(error)
             }
         }
     }
@@ -43,6 +52,6 @@ struct SVGWebView: UIViewRepresentable {
 }
 
 #Preview {
-    ForecastDetail()
+    ForecastDetail(cityId: Model().mockWeatherForecast.forecasts.first!.id)
         .environment(Model())
 }
