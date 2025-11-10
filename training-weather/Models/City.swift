@@ -10,6 +10,7 @@ import Foundation
 struct City: Codable, Identifiable, Hashable {
     var id:String
     var name: String
+    var isFavorite: Bool
 }
 
 
